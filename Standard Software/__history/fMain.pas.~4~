@@ -1,0 +1,39 @@
+unit fMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Vcl.Menus, Vcl.ToolWin, Vcl.ActnMan, Vcl.ActnCtrls, Vcl.ComCtrls,
+  Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnList, System.Actions;
+
+type
+  TfrmMain = class(TForm)
+    MainMenu1: TMainMenu;
+    ActionManager1: TActionManager;
+    StatusBar1: TStatusBar;
+    ActionToolBar1: TActionToolBar;
+    File1: TMenuItem;
+    Exit1: TMenuItem;
+    procedure Exit1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+uses dMain;
+
+{$R *.dfm}
+
+procedure TfrmMain.Exit1Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

@@ -1,0 +1,15 @@
+program TreadTest;
+
+uses
+  Vcl.Forms,
+  fMain in 'fMain.pas' {Form6},
+  AccThread in 'AccThread.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm6, Form6);
+  Application.Run;
+end.

@@ -1,0 +1,35 @@
+unit uAcc;
+
+interface
+
+uses dAcc, System.SysUtils;
+
+function GetValue: integer;
+procedure SetAccConn(AStr: String);
+function GetConnStr: String;
+function QU(AStr: string): string;
+
+implementation
+
+function QU(AStr: string): string;
+begin
+  Result := QuotedStr(AStr);
+end;
+
+function GetValue: integer;
+begin
+  Result := dmAcc.GetValue;
+
+end;
+
+procedure SetAccConn(AStr: String);
+begin
+  dmAcc.ConnStr := AStr;
+end;
+
+function GetConnStr: String;
+begin
+  Result := dmAcc.ConnStr;
+end;
+
+end.

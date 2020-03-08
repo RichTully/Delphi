@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2011/06/08 15:18:25.758.dfm,C:\PROJECTS\2007\Test\HTTPGet\fMain.dfm=C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2011/06/08 15:18:25.758.pas,C:\PROJECTS\2007\Test\HTTPGet\fMain.pas=C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2011/06/08 15:18:33.383.dproj,C:\PROJECTS\2007\Test\HTTPGet\HttpGet.dproj=C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

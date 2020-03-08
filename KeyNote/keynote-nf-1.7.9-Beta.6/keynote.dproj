@@ -1,0 +1,397 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{D8BB21C7-F08A-4EC5-AA3A-B61205ECD2B8}</ProjectGuid>
+        <MainSource>keynote.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <TargetedPlatforms>1025</TargetedPlatforms>
+        <AppType>Application</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <ProjectVersion>17.2</ProjectVersion>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_DcuOutput>..\Output\Dcu</DCC_DcuOutput>
+        <DCC_ExeOutput>..\Output\bin</DCC_ExeOutput>
+        <DCC_E>false</DCC_E>
+        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_DebugInformation>1</DCC_DebugInformation>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_S>false</DCC_S>
+        <DCC_K>false</DCC_K>
+        <DCC_Alignment>1</DCC_Alignment>
+        <VerInfo_Release>9</VerInfo_Release>
+        <DCC_Hints>false</DCC_Hints>
+        <SanitizedProjectName>keynote</SanitizedProjectName>
+        <VerInfo_Keys>CompanyName=;FileDescription=KeyNote NF (New Features);FileVersion=1.7.9.6;InternalName=KeyNote NF;LegalCopyright=(c) Daniel Prado 2007-15  (c) Marek Jedlinski, 2000-05;LegalTrademarks=Free software, MPL 2.0;OriginalFilename=keynote.exe;ProductName=KeyNote NF;ProductVersion=1.7.9 Beta 6;Comments=Improvements over version 1.6.5 of Marek&apos;s KeyNote;X-Fnord=;X-URL=http://code.google.com/p/keynote-nf/;X-MAILTO=dprado.keynote@gmail.com</VerInfo_Keys>
+        <VerInfo_MinorVer>7</VerInfo_MinorVer>
+        <DCC_UnitSearchPath>$(BDSPROJECTSDIR)\Lib\Debug;$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;$(BDS)\source\ToolsAPI;.\3rd_party\TntUnicodeControls\Source;.\3rd_party\Rx275d2006\Units;.\3rd_party\DcpCrypt-1_3;.\3rd_party\tb97_178a\Source;.\3rd_party\DFSStatusBar;.\3rd_party\RichPrint;.\3rd_party\ExtListView;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;DUnitX.CommandLine;System.Win;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+        <DCC_WriteableConstants>true</DCC_WriteableConstants>
+        <DCC_F>false</DCC_F>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_N>true</DCC_N>
+        <DCC_UsePackage>VCLX30;VCL30;VCLDB30;VCLDBX30;VCLSMP30;Icsdel30;RXCTL;RXTOOLS;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_AssertionsAtRuntime>false</DCC_AssertionsAtRuntime>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <Icon_MainIcon>keynote_Icon.ico</Icon_MainIcon>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>keynote_Icon.ico</Icon_MainIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="kn_Main.pas">
+            <Form>Form_Main</Form>
+        </DCCReference>
+        <DCCReference Include="3rd_party\treent\TreeNT.pas"/>
+        <DCCReference Include="3rd_party\Delphi Fast Zlib 1.2.3\ZLIBEX.PAS"/>
+        <DCCReference Include="3rd_party\langcombo\Langs.pas"/>
+        <DCCReference Include="3rd_party\_Others\UWebBrowserWrapper.pas"/>
+        <DCCReference Include="3rd_party\tb97_178a\Source\TB97Ctls.pas"/>
+        <DCCReference Include="3rd_party\colorpicker\ColorPicker.pas"/>
+        <DCCReference Include="3rd_party\ComCtrls95\ComCtrls95.pas"/>
+        <DCCReference Include="3rd_party\mruflist\MRUFList.pas"/>
+        <DCCReference Include="3rd_party\_Others\StreamIO.pas"/>
+        <DCCReference Include="3rd_party\gfxlbcb\cmpGFXListBox.pas"/>
+        <DCCReference Include="3rd_party\expression_evaluator\Parser.pas"/>
+        <DCCReference Include="3rd_party\sysimglist\SystemImageList.pas"/>
+        <DCCReference Include="3rd_party\gfxlbcb\cmpGFXComboBox.pas"/>
+        <DCCReference Include="3rd_party\browsedr\BrowseDr.pas"/>
+        <DCCReference Include="3rd_party\DFSStatusBar\DFSStatusBar.pas"/>
+        <DCCReference Include="3rd_party\topmostwindow\TopWnd.pas"/>
+        <DCCReference Include="3rd_party\langcombo\LCCombo.pas"/>
+        <DCCReference Include="3rd_party\wordweb\FreeWordWeb.pas"/>
+        <DCCReference Include="3rd_party\UAS\TestUAS\UAS.pas"/>
+        <DCCReference Include="3rd_party\ajbspeller\AJBSpeller.pas"/>
+        <DCCReference Include="3rd_party\CRCDelphi\crc32.pas"/>
+        <DCCReference Include="3rd_party\dcpcrypt-1_3\DCPcrypt.pas"/>
+        <DCCReference Include="3rd_party\richprint\RichPrint.pas"/>
+        <DCCReference Include="3rd_party\TntUnicodeControls\Source\TntStdCtrls.pas"/>
+        <DCCReference Include="3rd_party\ICS_InternetComponentSuite\WSocket.pas"/>
+        <DCCReference Include="3rd_party\ICS_InternetComponentSuite\MD5.pas"/>
+        <DCCReference Include="3rd_party\ICS_InternetComponentSuite\SmtpProt.pas"/>
+        <DCCReference Include="3rd_party\ICS_InternetComponentSuite\WSockbuf.pas"/>
+        <DCCReference Include="3rd_party\rx275d2006\Units\Placemnt.pas"/>
+        <DCCReference Include="support\kn_DLLmng.pas"/>
+        <DCCReference Include="support\gf_Bits.pas"/>
+        <DCCReference Include="support\gf_fileassoc.pas"/>
+        <DCCReference Include="support\gf_Files.pas"/>
+        <DCCReference Include="support\gf_Lang.pas"/>
+        <DCCReference Include="support\gf_LangCombo.pas"/>
+        <DCCReference Include="support\gf_misc.pas"/>
+        <DCCReference Include="support\gf_miscvcl.pas"/>
+        <DCCReference Include="support\gf_streams.pas"/>
+        <DCCReference Include="support\gf_strings.pas"/>
+        <DCCReference Include="support\GFLog.pas"/>
+        <DCCReference Include="general\kn_VCLControlsMng.pas"/>
+        <DCCReference Include="general\GFTipDlg.pas"/>
+        <DCCReference Include="general\GFTipDlgForm.pas">
+            <Form>GFTipForm</Form>
+        </DCCReference>
+        <DCCReference Include="general\kn_about.pas">
+            <Form>AboutBox</Form>
+        </DCCReference>
+        <DCCReference Include="general\kn_Chest.pas">
+            <Form>Chest</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="general\kn_Cmd.pas"/>
+        <DCCReference Include="general\kn_ConfigMng.pas"/>
+        <DCCReference Include="general\kn_Const.pas"/>
+        <DCCReference Include="general\kn_DateTime.pas"/>
+        <DCCReference Include="general\kn_Defaults.pas">
+            <Form>Form_Defaults</Form>
+        </DCCReference>
+        <DCCReference Include="general\kn_Global.pas"/>
+        <DCCReference Include="general\kn_Info.pas"/>
+        <DCCReference Include="general\kn_INI.pas"/>
+        <DCCReference Include="general\kn_KBD.pas"/>
+        <DCCReference Include="general\kn_Msgs.pas"/>
+        <DCCReference Include="general\kn_OptionsNew.pas">
+            <Form>Form_OptionsNew</Form>
+        </DCCReference>
+        <DCCReference Include="kn_DLLinterface.pas"/>
+        <DCCReference Include="editor\MSWordConverter.pas"/>
+        <DCCReference Include="editor\kn_BookmarksMng.pas"/>
+        <DCCReference Include="editor\kn_Chars.pas">
+            <Form>Form_Chars</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_ClipUtils.pas"/>
+        <DCCReference Include="editor\kn_EditorUtils.pas"/>
+        <DCCReference Include="editor\kn_ExpandObj.pas"/>
+        <DCCReference Include="editor\kn_ExpTermDef.pas">
+            <Form>Form_TermDef</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_FindReplace.pas">
+            <Form>Form_FindReplace</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_FindReplaceMng.pas"/>
+        <DCCReference Include="editor\kn_Glossary.pas">
+            <Form>Form_Glossary</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_LanguageSel.pas">
+            <Form>Form_Lang</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_LinksMng.pas"/>
+        <DCCReference Include="editor\kn_NewTemplate.pas">
+            <Form>Form_Template</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_Paragraph.pas">
+            <Form>Form_Para</Form>
+        </DCCReference>
+        <DCCReference Include="editor\kn_RTFUtils.pas"/>
+        <DCCReference Include="editor\kn_StyleMng.pas"/>
+        <DCCReference Include="editor\kn_StyleObj.pas"/>
+        <DCCReference Include="editor\kn_TemplateMng.pas"/>
+        <DCCReference Include="editor\kn_URL.pas">
+            <Form>Form_URLAction</Form>
+        </DCCReference>
+        <DCCReference Include="editor\MSOfficeConverters.pas"/>
+        <DCCReference Include="Lang\kn_LanguagesMng.pas"/>
+        <DCCReference Include="macros\kn_MacroMng.pas"/>
+        <DCCReference Include="macros\kn_Macro.pas"/>
+        <DCCReference Include="macros\kn_MacroCmd.pas"/>
+        <DCCReference Include="macros\kn_MacroCmdSelect.pas">
+            <Form>Form_MacroCmd</Form>
+        </DCCReference>
+        <DCCReference Include="macros\kn_MacroEdit.pas">
+            <Form>Form_Macro</Form>
+        </DCCReference>
+        <DCCReference Include="plugins\kn_PluginsMng.pas"/>
+        <DCCReference Include="plugins\kn_PluginBase.pas"/>
+        <DCCReference Include="plugins\kn_Plugins.pas"/>
+        <DCCReference Include="structure\kn_VirtualNodeMng.pas"/>
+        <DCCReference Include="structure\kn_ExportImport.pas"/>
+        <DCCReference Include="structure\kn_ExportNew.pas">
+            <Form>Form_ExportNew</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_FileDropAction.pas">
+            <Form>Form_DropFile</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_FileInfo.pas">
+            <Form>Form_FileInfo</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_filemgr.pas">
+            <Form>Form_FileMgr</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_FileObj.pas"/>
+        <DCCReference Include="structure\kn_History.pas"/>
+        <DCCReference Include="structure\kn_ImagePicker.pas">
+            <Form>Form_ImgPick</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_LocationObj.pas"/>
+        <DCCReference Include="structure\kn_NewNote.pas">
+            <Form>Form_NewNote</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_NodeList.pas"/>
+        <DCCReference Include="structure\kn_NodeNum.pas">
+            <Form>Form_NodeNum</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_NoteFileMng.pas"/>
+        <DCCReference Include="structure\kn_NoteMng.pas"/>
+        <DCCReference Include="structure\kn_NoteObj.pas"/>
+        <DCCReference Include="structure\kn_pass.pas">
+            <Form>Form_Password</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_TabSelect.pas">
+            <Form>Form_SelectTab</Form>
+        </DCCReference>
+        <DCCReference Include="structure\kn_TreeNoteMng.pas"/>
+        <DCCReference Include="structure\kn_VirtualNodeForm.pas">
+            <Form>Form_VNode</Form>
+        </DCCReference>
+        <DCCReference Include="various\kn_SendMail.pas">
+            <Form>Form_Mail</Form>
+        </DCCReference>
+        <DCCReference Include="various\kn_AlertMng.pas">
+            <Form>Form_Alarm</Form>
+        </DCCReference>
+        <DCCReference Include="various\kn_FavExtDlg.pas">
+            <Form>Form_FavExt</Form>
+        </DCCReference>
+        <DCCReference Include="various\kn_FavoritesMng.pas"/>
+        <DCCReference Include="general\dll_Keyboard.pas"/>
+        <DCCReference Include="3rd_party\kdl32_Kryvich's Delphi Localizer\uFreeLocalizer.pas"/>
+        <DCCReference Include="3rd_party\kdl32_Kryvich's Delphi Localizer\uStringUtils.pas"/>
+        <DCCReference Include="3rd_party\Rx275d2006\Units\RxRichEd.pas"/>
+        <DCCReference Include="various\tom_TLB.pas"/>
+        <None Include="ModelSupport_keynote\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Cmd\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Chars\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\LCCombo\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_INI\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NoteObj\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_SendMail\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_TabSelect\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ImagePicker\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\RxRichEd\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_StyleObj\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_MacroEdit\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\keynote\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ExportNew\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NewTemplate\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\Langs\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_filemgr\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_DLLinterface\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_tmpRTF\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ClipUtils\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NodeList\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_FavExtDlg\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Paragraph\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_LocationObj\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NodeNum\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Macro\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_LanguageSel\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Msgs\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_MacroCmdSelect\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Const\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_about\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Info\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_History\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\knx_resourcebar\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\gf_const\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_MacroCmd\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ExpTermDef\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_DateTime\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Main\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Chest\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_FileDropAction\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_URL\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ExpandObj\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_OptionsNew\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_FileInfo\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Glossary\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Replace\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\UAS\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_PluginBase\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_RTFUtils\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Defaults\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_FileObj\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Plugins\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_pass\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NewNote\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Find\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\default.txvpck"/>
+        <None Include="ModelSupport_keynote\gf_const\default.txvpck"/>
+        <None Include="ModelSupport_keynote\keynote\default.txvpck"/>
+        <None Include="ModelSupport_keynote\LCCombo\default.txvpck"/>
+        <None Include="ModelSupport_keynote\RxRichEd\default.txvpck"/>
+        <None Include="ModelSupport_keynote\UAS\default.txvpck"/>
+        <None Include="ModelSupport_keynote\knx_resourcebar\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_tmpRTF\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_DateTime\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Defaults\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_ClipUtils\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_DLLinterface\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Const\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Cmd\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Chars\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Main\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_MacroEdit\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_MacroCmd\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_NoteObj\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_NodeList\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_NodeNum\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_about\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_ExportNew\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_FindReplaceMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_PluginsMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_TreeNoteMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ConfigFileMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_TemplateMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_FavoritesMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_StyleMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_Global\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_MacroMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NoteFileMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_DLLmng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_NoteMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_BookmarksMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_VirtualNodeMng\default.txaPackage"/>
+        <None Include="ModelSupport_keynote\kn_ConfigFileMng\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_FindReplaceMng\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Find\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_Replace\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_filemgr\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_LocationObj\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_TreeNoteMng\default.txvpck"/>
+        <None Include="ModelSupport_keynote\kn_AlertMng\default.txaPackage"/>
+        <None Include="support\gf_base.inc">
+            <ContainerId>File</ContainerId>
+        </None>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">keynote.dpr</Source>
+                </Source>
+            </Delphi.Personality>
+            <Platforms>
+                <Platform value="iOSDevice64">True</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+</Project>

@@ -1,0 +1,22 @@
+unit uAcc;
+
+interface
+
+uses dAcc;
+
+function GetValue: integer;
+procedure SeAccConn(AStr: String);
+
+implementation
+
+function GetValue: integer;
+begin
+  Result := dmAcc.GetValue;
+
+end;
+
+procedure SeAccConn(AStr: String);
+begin
+
+end;
+end.

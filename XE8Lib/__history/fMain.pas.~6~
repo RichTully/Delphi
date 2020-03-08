@@ -1,0 +1,92 @@
+unit fMain;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TfrmMain = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    btnSO: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure btnSOClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+{$R *.dfm}
+
+uses dAcc, uAcc;
+
+procedure TfrmMain.btnSOClick(Sender: TObject);
+var
+  ASO: TSO;
+  ASOL:TSalesOrd_Line;
+begin
+  try
+    ASO:=TSO.Create(250);
+    ASO.Ref1 := 'Reference';
+    ASO.Ref2 := 'Refer Two';
+    //ASO.SubTotal := 100;
+    ASOL := TSalesOrd_Line.Create('SCODE',4,26.5);
+    ASOL.TaxRate := 15;
+    ASO.Lines.Add(ASOL);
+    ASOL := TSalesOrd_Line.Create('SCODE2',2,20.75);
+    //ASOL.TaxRate := 15;
+    ASO.Lines.Add(ASOL);
+    MessageDlg(ASo.ShowInfo, mtInformation, [mbOK],0);
+  finally
+    ASO.Free;
+  end;
+end;
+
+procedure TfrmMain.Button1Click(Sender: TObject);
+var
+  AStr: string;
+begin
+  AStr := QU(GetConnStr);
+  showmessage(AStr);
+end;
+
+procedure TfrmMain.Button2Click(Sender: TObject);
+begin
+  SetAccConn ('Test');
+end;
+
+
+procedure TfrmMain.Button3Click(Sender: TObject);
+var
+  AForm: TForm;
+begin
+  try
+    AForm := TForm.Create(Self);
+    begin
+      with TButton.create(AForm) do
+      begin
+        Left := 30;
+        Top := 30;
+        Width := 50;
+        Height := 40;
+        Caption :='Test';
+      end;
+      AForm.ShowModal;
+    end;
+  finally
+    AForm.Free;
+  end;
+end;
+
+end.

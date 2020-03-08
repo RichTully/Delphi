@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2009/09/11 15:12:04.155.pas,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.pas=C:\PROJECTS\2007\Ecco Pacific\BusImport\sImport.pas</Transaction>
+    <Transaction>2009/09/11 15:12:04.155.dfm,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.dfm=C:\PROJECTS\2007\Ecco Pacific\BusImport\sImport.dfm</Transaction>
+    <Transaction>2009/09/11 15:12:26.093.dproj,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Project1.dproj=C:\PROJECTS\2007\Ecco Pacific\BusImport\BusImportSvr.dproj</Transaction>
+    <Transaction>2009/10/06 15:56:10.091.dproj,C:\PROJECTS\2007\Top Value\WebImport\BusImportSvr.dproj=C:\PROJECTS\2007\Top Value\WebImport\WebImportSvr.dproj</Transaction>
+    <Transaction>2011/03/30 13:04:18.455.dproj,C:\PROJECTS\2007\Storerite\WebService\WebImportSvr.dproj=C:\PROJECTS\2007\Storerite\WebService\StoreWebSvr.dproj</Transaction>
+    <Transaction>2011/06/08 13:58:03.617.dproj,C:\PROJECTS\2007\Splash\WebService\StoreWebSvr.dproj=C:\PROJECTS\2007\Splash\WebService\SplashWebSvr.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

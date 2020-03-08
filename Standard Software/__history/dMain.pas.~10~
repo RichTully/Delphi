@@ -1,0 +1,332 @@
+unit dMain;
+
+interface
+
+uses
+  SysUtils, Classes, IniFiles, DB, ADODB, Dialogs, ImgList, Controls, RpCon,
+  RpConDS, RpRender, RpRenderPDF, RpRave, RpDefine, RpBase, RpSystem, RpFiler,
+  RpRenderHTML, ShowVersion, Provider, DBClient, IDSRegistry, RvLDCompiler,
+  IDSLogToFile, MidasLib, RpRenderCanvas, RpRenderPrinter, JvComponentBase,
+  JvCipher;
+
+type
+  TdmMain = class(TDataModule)
+    dbConn: TADOConnection;
+    ImageList: TImageList;
+    RvSystem1: TRvSystem;
+    RvProject1: TRvProject;
+    RvRenderPDF1: TRvRenderPDF;
+    RvNDRWriter1: TRvNDRWriter;
+    RvRenderHTML1: TRvRenderHTML;
+    idsVer: TIDSShowVersion;
+    idsReg: TIDSRegistry;
+    idsLogFile: TIDSLogToFile;
+    RvRenderPrinter1: TRvRenderPrinter;
+    dspConn: TDataSetProvider;
+    qryConn: TADOQuery;
+    cdsGeneral: TClientDataSet;
+    jvCipher: TJvVigenereCipher;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    fDebug: Boolean;
+    fToFile: Boolean;
+    fWeekly: Boolean;
+    fClientName:string;
+    fReportName: string;
+    fRptInvName: String;
+    fRptStateName: String;
+    fSMTPFromAddress: string;
+    fSMTPFromName: string;
+    fSMTPHost: string;
+    fSMTPUserName: string;
+    function GetSearchStr(IntFieldName, FieldName, IsActiveFieldName, SearchKey: String; IncInActive: Boolean): string;
+    procedure GetData(cds: TClientDataSet; SQL: string);
+    procedure GetGeneralData(SQL: string);
+    function GetDataString(SQL: String): String;
+    function GetDataInteger(SQL: String): Integer;
+    procedure ExecuteSQL(SQL: string);
+
+    function nifb(AStr: string): string;
+    function nif(AStr, NStr: string): string;
+    function zifb(AStr: string): string;
+    function ifb(AStr, DefStr: string): string;
+
+    function PrintRpt(PDFPath, RptName: string; SeqNo: Integer; FPV: string): string;
+    procedure LogMessage(S: string);
+  end;
+
+var
+  dmMain: TdmMain;
+const
+  PRODUCTNAME='StaffMaint';
+
+implementation
+
+{$R *.dfm}
+
+procedure TdmMain.DataModuleCreate(Sender: TObject);
+var
+  Inifile :TIniFile;
+  PPos, i : integer;
+  Param1, ConStr, ConStrEx, WeekStr, KeyStr, AStr, Pwd: String;
+begin
+  if dbConn.Connected then
+  begin
+    MessageDlg('Close Connection before Distribution',mtInformation,[mbOK],0);
+  end;
+
+  dbConn.Close;
+  ConStr := 'Acclaim';
+  ConStrEx := '';
+
+  fDebug := False;
+  fToFile := False;
+  for i:= 1 to ParamCount do
+  begin
+    if (UpperCase(ParamStr(i)) = 'DEBUG') then
+      fDebug := True
+    else if (UpperCase(ParamStr(i)) = 'FILE') then
+    begin
+      fToFile := True;
+      idsLogFile.FileName := PRODUCTNAME+'.log';
+    end
+    else if (UpperCase(Copy(ParamStr(i),1,3)) = '/C=') then           // Alternative Connection
+      ConStrEx := Copy(ParamStr(i),4,Length(ParamStr(i))-3);
+  end;
+
+  try
+    dbConn.Close;
+    if (not FileExists(GetCurrentDir+'\AcclaimConnection.ini')) then
+      MessageDlg('AcclaimConnection.ini not found',mtInformation,[mbOK],0);
+    IniFile:=TIniFile.Create(GetCurrentDir+'\AcclaimConnection.ini');
+    LogMessage('DMain create - Get Connection String');
+    ConStr := ConStr + ConStrEx;
+    AStr := IniFile.ReadString('Connections',ConStr,'');
+    LogMessage('Constr ['+Astr+']');
+    KeyStr:='Password';
+    Pwd := IniFile.ReadString('Connections',KeyStr,'');
+    if Pwd <> '' then
+    begin
+      //Pwd := EncryptString(Pwd,KeyStr);
+      jvCipher.Key := 'AcclaimGroup';
+      {
+      jvCipher.Encoded := 'masterkeyandawhole lot of rubbish';
+      IniFile.WriteString('Connections',KeyStr,jvCipher.Decoded);
+      {}
+      jvCipher.Decoded := Pwd;
+      Pwd := jvCipher.Encoded;
+      //Pwd := DecryptString(Pwd,KeyStr);
+      if pos('[Password]',AStr) > 0 then
+      begin
+        PPos := pos('['+KeyStr+']',AStr);        // note Copy 9 chars
+        AStr := Copy(AStr,1,PPos-1)+Copy(Pwd,1,9)+Copy(AStr,PPos+10,length(AStr)-PPos-9);
+      end;
+    end;
+    dbConn.ConnectionString := AStr;        // Incase we don't use the password
+
+    WeekStr := UpperCase(IniFile.ReadString('Settings','Weekly','False'));
+    fWeekly := (WeekStr='TRUE');
+    fClientName:=IniFile.ReadString('Settings','ClientName','');
+    fReportName:=IniFile.ReadString('Settings','ReportName','');
+    fRptInvName:=IniFile.ReadString('Settings','InvoiceReport','rptInvoice');
+    fRptStateName:=IniFile.ReadString('Settings','StatementReport','rptStatement');
+    fSMTPHost:=IniFile.ReadString('SMTP','Host','');
+    fSMTPUserName:=IniFile.ReadString('SMTP','UserName','');
+    fSMTPfromName:=IniFile.ReadString('SMTP','FromName','');
+    fSMTPfromAddress:=IniFile.ReadString('SMTP','FromAddress','');
+    if dbConn.Connected then
+    begin
+      MessageDlg('Close Connection before Distribution',mtInformation,[mbOK],0);
+      //Halt;
+    end;
+    try
+      dbConn.Connected := True;
+    except
+      MessageDlg('Cannot connect to Database'+#13+dbConn.ConnectionString,mtError,[mbOK],0);
+      Halt;
+    end;
+  except
+    MessageDlg('Error connecting to Database'+#13+dbConn.ConnectionString,mtError,[mbOK],0);
+    Halt;
+  end;
+  if Trim(fReportName) <> '' then
+  begin
+    RvProject1.ProjectFile := ExtractFilePath(ParamStr(0))+fReportName;
+    RvProject1.Open;
+  end;
+end;
+
+function TdmMain.GetSearchStr(IntFieldName, FieldName, IsActiveFieldName, SearchKey: String; IncInActive: Boolean): string;
+var
+  Act, Srch, S1, S2, FNames: String;
+  V, Code, i: Integer;
+  IsAnd: Boolean;
+  //======================
+  function AndOr:String;
+  begin
+    if IsAnd then
+      Result := ' And( '
+    else
+      Result := ' OR ';
+    IsAnd := False;
+  end;
+begin
+  i := 0;
+  IsAnd := True;
+  Srch := '';
+  if IncInActive then
+    Act := ' '
+  else
+    Act := ' And '+IsActiveFieldName+' = '+ QuotedStr('Y');
+  if SearchKey <> '' then
+  begin
+    SearchKey := Trim(SearchKey);    // Remove blanks from either end
+    Val(SearchKey, V, Code);
+    FNames := FieldName+';';
+    while pos(';',FNames) > 0 do
+    begin
+      FieldName := Copy(FNames,1,pos(';',FNames)-1);
+      FNames := Copy(FNames,length(FieldName)+2,Length(FNames)-length(FieldName)-1);
+      if (Code = 0) and (i = 0) then
+      begin
+        if IntFieldName <> '' then
+          Srch := AndOr+' ('+IntFieldName+' = '+SearchKey+')';
+        inc(i);
+      end;
+      //else
+      if pos(' ',SearchKey) > 0 then
+      begin
+        S1 := Copy(SearchKey, 1, pos(' ', SearchKey)-1);
+        S2 := Copy(SearchKey,pos(' ', SearchKey)+1, length(SearchKey));
+        Srch := Srch + AndOr+' (Upper('+FieldName+') Like UPPER('+QuotedStr('%'+S1+'%'+S2+'%')+')'+
+                ' Or Upper('+FieldName+') Like UPPER('+QuotedStr('%'+S2+'%'+S1+'%')+'))';
+      end
+      else
+        Srch :=  Srch + AndOr+' (Upper('+FieldName+') Like UPPER('+QuotedStr('%'+SearchKey+'%')+'))'
+    end;
+    if not IsAnd then
+      Srch := Srch + ')';
+  end
+  else
+    Srch := ' ';
+  Result := Act+Srch;
+end;
+//===============================================================================
+procedure TdmMain.GetData(cds: TClientDataSet; SQL: String);
+begin
+  cds.Close;
+  if cds.ProviderName = '' then
+    cds.ProviderName := 'dspConn';
+  qryConn.SQL.Text := SQL;
+  cds.Open;
+end;
+
+procedure TdmMain.GetGeneralData(SQL: string);
+begin
+  GetData(cdsGeneral, SQL);
+end;
+
+function TdmMain.GetDataString(SQL: String): string;
+begin
+  qryConn.Close;
+  qryConn.SQL.Text := SQL;
+  qryConn.Open;
+  Result := qryConn.Fields[0].AsString;
+end;
+
+function TdmMain.GetDataInteger(SQL: String): integer;
+begin
+  qryConn.Close;
+  qryConn.SQL.Text := SQL;
+  qryConn.Open;
+  Result := qryConn.Fields[0].AsInteger;
+end;
+
+procedure  TdmMain.ExecuteSQL(SQL: string);
+begin
+  qryConn.Close;
+  qryConn.SQL.Text := SQL;
+  qryConn.ExecSQL;
+end;
+
+function TdmMain.ifb(AStr, DefStr: string): string;
+var
+  BStr: string;
+begin
+  BStr := Trim(AStr);
+  if BStr = '' then
+    Result := DefStr
+  else
+    Result := BStr;
+end;
+
+function TdmMain.nifb(AStr: string): string;
+begin
+  Result := ifb(AStr,'null');
+end;
+
+function TdmMain.nif(AStr, NStr: string): string;
+begin
+  if AStr = NStr then
+    Result := 'null'
+  else
+    Result := AStr;
+end;
+
+function TdmMain.zifb(AStr: string): string;
+begin
+  Result := ifb(AStr,'0');
+end;
+
+
+
+function TdmMain.PrintRpt(PDFPath, RptName: string; SeqNo: Integer; FPV: string): string;
+var
+  i: integer;
+begin
+  //qryGeneralInfo.Open;
+  RvProject1.Open;
+  RvProject1.SelectReport(RptName,False);
+  if FPV = 'F' then
+  begin
+    RvSystem1.DefaultDest := rdFile;
+    RvSystem1.ReportDest := rdFile;
+    RvSystem1.DoNativeOutput := false;
+    RvSystem1.RenderObject := RvRenderPDF1;
+    RvSystem1.OutputFileName := PDFPath+'Rpt_'+IntToStr(SeqNo)+'.pdf';
+   end
+  else if FPV = 'P' then
+  begin
+    RvSystem1.RenderObject := RvRenderPrinter1;
+    RvSystem1.DefaultDest := rdPrinter;
+    RvSystem1.ReportDest := rdPrinter;
+    RvSystem1.DoNativeOutput := True;
+    RvSystem1.OutputFileName := '';
+    RvSystem1.RenderObject := nil;
+  end
+  else if FPV = 'V' then
+  begin
+    RvSystem1.DefaultDest := rdPreview;
+    RvSystem1.ReportDest := rdPreview;
+  end;
+  RvSystem1.SystemSetups := dmMain.RvSystem1.SystemSetups - [ssAllowSetup];
+
+  RvProject1.Execute;
+  Result := RvSystem1.OutputFileName;
+end;
+
+procedure TdmMain.LogMessage(S: string);
+begin
+  if fDebug then
+  begin
+    if fToFile then
+      idsLogFile.write(S)
+    else
+      ShowMessage(S);
+  end;
+end;
+
+end.

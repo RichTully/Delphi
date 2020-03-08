@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2015/05/21 22:18:27.000.940,=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2015/05/21 22:24:00.000.612,=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit6.pas</Transaction>
+    <Transaction>2015/05/21 22:25:24.000.443,=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2015/05/21 22:27:18.000.242,C:\Richard\Delphi\fMain.dfm=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit5.dfm</Transaction>
+    <Transaction>2015/05/21 22:27:18.000.242,C:\Richard\Delphi\fMain.pas=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2015/05/21 22:27:33.000.708,C:\Richard\Delphi\dMain.dfm=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit7.dfm</Transaction>
+    <Transaction>2015/05/21 22:27:33.000.708,C:\Richard\Delphi\dMain.pas=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2015/05/21 22:27:42.000.253,C:\Richard\Delphi\dAcc.dfm=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit6.dfm</Transaction>
+    <Transaction>2015/05/21 22:27:42.000.253,C:\Richard\Delphi\dAcc.pas=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit6.pas</Transaction>
+    <Transaction>2015/05/21 22:28:01.000.666,C:\Richard\Delphi\XE8Lib\Test.dproj=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Project4.dproj</Transaction>
+    <Transaction>2015/05/21 22:28:24.000.082,C:\Richard\Delphi\XE8Lib\fMain.dfm=C:\Richard\Delphi\fMain.dfm</Transaction>
+    <Transaction>2015/05/21 22:28:24.000.082,C:\Richard\Delphi\XE8Lib\fMain.pas=C:\Richard\Delphi\fMain.pas</Transaction>
+    <Transaction>2015/05/21 22:28:35.000.865,C:\Richard\Delphi\XE8Lib\dMain.dfm=C:\Richard\Delphi\dMain.dfm</Transaction>
+    <Transaction>2015/05/21 22:28:35.000.865,C:\Richard\Delphi\XE8Lib\dMain.pas=C:\Richard\Delphi\dMain.pas</Transaction>
+    <Transaction>2015/05/21 22:28:54.000.072,C:\Richard\Delphi\XE8Lib\dAcc.pas=C:\Richard\Delphi\dAcc.pas</Transaction>
+    <Transaction>2015/05/21 22:28:54.000.072,C:\Richard\Delphi\XE8Lib\dAcc.dfm=C:\Richard\Delphi\dAcc.dfm</Transaction>
+    <Transaction>2015/05/22 10:43:27.000.429,=C:\Richard\Delphi\XE8Lib\Unit1.pas</Transaction>
+    <Transaction>2015/05/22 10:43:47.000.337,C:\Richard\Delphi\XE8Lib\uAcc.pas=C:\Richard\Delphi\XE8Lib\Unit1.pas</Transaction>
+    <Transaction>2015/05/22 20:08:26.000.169,C:\Richard\Delphi\XE8Lib\uAcc.pas=</Transaction>
+    <Transaction>2015/05/22 20:13:22.000.891,C:\Richard\Delphi\XE8Lib\dAcc.pas=</Transaction>
+    <Transaction>2015/05/23 14:25:09.000.339,=C:\Richard\Delphi\XE8Lib\uAcc.pas</Transaction>
+    <Transaction>2015/05/23 14:25:16.000.081,C:\Richard\Delphi\XE8Lib\uAcc.pas=</Transaction>
+  </Transactions>
+</BorlandProject>

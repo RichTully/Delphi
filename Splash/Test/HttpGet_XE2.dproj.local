@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2011/06/08 15:18:25.758.pas,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.pas=C:\PROJECTS\2007\Test\HTTPGet\fMain.pas</Transaction>
+    <Transaction>2011/06/08 15:18:25.758.dfm,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.dfm=C:\PROJECTS\2007\Test\HTTPGet\fMain.dfm</Transaction>
+    <Transaction>2011/06/08 15:18:33.383.dproj,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Project1.dproj=C:\PROJECTS\2007\Test\HTTPGet\HttpGet.dproj</Transaction>
+    <Transaction>2013/03/27 13:07:07.000.275,C:\PROJECTS\XE\Test\HTTPGet\HttpGet_XE2.dproj=C:\PROJECTS\XE\Test\HTTPGet\HttpGet.dproj</Transaction>
+    <Transaction>2014/05/27 20:35:38.930,=C:\Richard\Delphi\Splash\Test\securezealdcompinnaclevAPIV2Product.pas</Transaction>
+  </Transactions>
+</BorlandProject>

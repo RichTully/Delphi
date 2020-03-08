@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<BorlandProject xmlns="http://www.borland.com/DeveloperStudio">
+  <PersonalityInfo>
+    <Option>
+      <Option Name="Personality">ETM.Personality</Option>
+      <Option Name="ProjectType">Xlat</Option>
+      <Option Name="Version">1.0</Option>
+      <Option Name="GUID">{BE9856A2-2B54-43CB-B7DA-62B38E87BAE1}</Option>
+    </Option>
+  </PersonalityInfo>
+  <ETM.Personality>
+    <Options>
+      <Options Name="BaseLang">5129</Options>
+      <Options Name="LCID">5129</Options>
+      <Options Name="Ext">ENZ</Options>
+    </Options>
+    <FileList>
+      <File FileName="C:\Richard\Delphi\SMTP\fMain.dfm" FileType="DFMFileType" ContainerId=""/>
+      <File FileName="C:\Richard\Delphi\MySQL\Unit3.dfm" FileType="DFMFileType" ContainerId=""/>
+    </FileList>
+  </ETM.Personality>
+</BorlandProject>

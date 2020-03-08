@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2010/03/10 08:15:05.129.pas,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.pas=C:\PROJECTS\2007\Standard Software\Connection setup\fMain.pas</Transaction>
+    <Transaction>2010/03/10 08:15:05.145.dfm,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Unit1.dfm=C:\PROJECTS\2007\Standard Software\Connection setup\fMain.dfm</Transaction>
+    <Transaction>2010/03/10 08:15:19.332.dproj,C:\Documents and Settings\RichardT\My Documents\RAD Studio\Projects\Project1.dproj=C:\PROJECTS\2007\Standard Software\Connection setup\SQLConnection.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

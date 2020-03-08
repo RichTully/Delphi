@@ -1,0 +1,19 @@
+program Test;
+
+uses
+  Vcl.Forms,
+  fMain in 'fMain.pas' {frmMain},
+  dAcc in 'dAcc.pas' {dmAcc: TDataModule},
+  dMain in 'dMain.pas' {dmMain: TDataModule},
+  uAcc in 'uAcc.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TdmAcc, dmAcc);
+  Application.CreateForm(TdmMain, dmMain);
+  Application.Run;
+end.

@@ -1,0 +1,44 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{3bee94d8-673d-49da-816e-3cde2eef017c}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="..\..\Brandz\Lube\LubeDelivery.dproj" />
+    <Projects Include="WebImportSvr.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="WebImportSvr">
+    <MSBuild Projects="WebImportSvr.dproj" Targets="" />
+  </Target>
+  <Target Name="WebImportSvr:Clean">
+    <MSBuild Projects="WebImportSvr.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="WebImportSvr:Make">
+    <MSBuild Projects="WebImportSvr.dproj" Targets="Make" />
+  </Target>
+  <Target Name="LubeDelivery">
+    <MSBuild Projects="..\..\Brandz\Lube\LubeDelivery.dproj" Targets="" />
+  </Target>
+  <Target Name="LubeDelivery:Clean">
+    <MSBuild Projects="..\..\Brandz\Lube\LubeDelivery.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="LubeDelivery:Make">
+    <MSBuild Projects="..\..\Brandz\Lube\LubeDelivery.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="WebImportSvr;LubeDelivery" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="WebImportSvr:Clean;LubeDelivery:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="WebImportSvr:Make;LubeDelivery:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>

@@ -1,0 +1,216 @@
+unit fMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
+  IdHTTP, ExtCtrls, IdUri, IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack,
+  IdSSL, IdSSLOpenSSL, IdUserPassProvider, IdSASL, IdSASLUserPass, IdSASLLogin,
+  IdAuthentication, Soap.InvokeRegistry, System.TypInfo, Soap.WebServExp,
+  Soap.WSDLBind, Xml.XMLSchema, Soap.WSDLPub, Soap.Rio, Soap.SOAPHTTPClient,
+  Data.DB, Datasnap.DBClient, Soap.SOAPConn, IdIntercept, IdLogBase, IdLogFile,
+  Vcl.ComCtrls, Xml.xmldom, Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc,
+  securezealdcompinnaclevAPIV2Product;
+
+type
+  TfrmMain = class(TForm)
+    IdHTTP1: TIdHTTP;
+    Memo1: TMemo;
+    Panel1: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL;
+    edtTable: TEdit;
+    edtID: TEdit;
+    btnPostPrice: TButton;
+    btnPostInv: TButton;
+    SoapConnection1: TSoapConnection;
+    HTTPRIO1: THTTPRIO;
+    WSDLHTMLPublish1: TWSDLHTMLPublish;
+    Button5: TButton;
+    IdLogFile1: TIdLogFile;
+    StatusBar1: TStatusBar;
+    XMLDocument1: TXMLDocument;
+    Button6: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure IdHTTP1Authorization(Sender: TObject;
+      Authentication: TIdAuthentication; var Handled: Boolean);
+    procedure btnPostPriceClick(Sender: TObject);
+    procedure btnPostInvClick(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure IdSSLIOHandlerSocketOpenSSL1Status(ASender: TObject;
+      const AStatus: TIdStatus; const AStatusText: string);
+    procedure Button6Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+const
+  z_api_key = '323bdAD5Bb26Aeb6e0d6';
+  z_website = 'pinnaclev';
+
+implementation
+
+{$R *.dfm}
+
+//uses ;
+
+procedure TfrmMain.Button1Click(Sender: TObject);
+var
+  Resp, address: string;
+begin
+  Resp := 'xxxxx';
+  address := TidURI.UrlEncode('http://www.jaesupport.co.nz/webservtest.php?user=agfk476ye3&password=jd45ga47k2');
+  Resp := idHTTP1.Get(address);
+  //ShowMessage(Resp);
+  Memo1.Lines.Text := Resp;
+end;
+
+procedure TfrmMain.Button2Click(Sender: TObject);
+var
+  Resp, address : string;
+begin
+  Resp := 'xxxxx';
+  address := TidURI.UrlEncode('http://maps.google.com/maps/geo?q=New Zealand&output=csv&key=');
+  Resp := idHTTP1.Get(address);
+  Memo1.Lines.Text := Resp;
+  //ShowMessage(Resp);
+end;
+
+procedure TfrmMain.Button4Click(Sender: TObject);
+var
+  Resp, address, Rate, CFrom, CTo : string;
+  St, L: integer;
+begin
+  address := 'http://www.westpac.co.nz/olcontent/olcontent.nsf/fx.xml';
+  Resp := idHTTP1.Get(address);
+  Memo1.Lines.Text := Resp;
+(*
+  Resp := 'xxxxx';
+  CFrom := 'NZD';
+  CTo := 'ZAR';
+  address := 'http://www.xignite.com/xCurrencies.asmx/GetRealTimeCrossRate?From='+CFrom+'&To='+CTo;
+  Resp := idHTTP1.Get(address);
+  St := pos('<Rate>',Resp)+6;
+  L := pos('</Rate>',Resp) - St;
+  Rate := Copy(Resp, St, L);
+  Memo1.Lines.Text := CFrom + ' to '+CTo +' = '+Rate;
+
+  CFrom := 'NZD';
+  CTo := 'AUD';
+  address := 'http://www.xignite.com/xCurrencies.asmx/GetRealTimeCrossRate?From='+CFrom+'&To='+CTo;
+  Resp := idHTTP1.Get(address);
+  St := pos('<Rate>',Resp)+6;
+  L := pos('</Rate>',Resp) - St;
+  Rate := Copy(Resp, St, L);
+  Memo1.Lines.Add (CFrom + ' to '+CTo +' = '+Rate);
+  *)
+end;
+
+procedure TfrmMain.Button5Click(Sender: TObject);
+var
+  url, resp: string;
+begin
+    url :='http://www.acclaimdev.com/WiltonWelsh/CkData.php';
+    resp := idHTTP1.Get(url);
+    showmessage(resp);
+end;
+
+procedure TfrmMain.Button6Click(Sender: TObject);
+var
+  RS: IXMLResultSet;
+  Prod: IXMLResultSet_Product;
+begin
+  RS := GetResultSet(XMLDocument1);
+  Prod := RS.Product[0];
+  Memo1.Text := Prod.XML  ;
+end;
+
+procedure TfrmMain.btnPostInvClick(Sender: TObject);
+var
+  Resp, address, table, id : string;
+  PParm: TStringList;
+begin
+  address := 'http://galaxi.co.nz/WebS.php?typ=3';
+  PParm := TStringList.Create;
+  PParm.Add('sku[0]=01299');
+  PParm.Add('&qty[0]=999');
+  Resp := idHTTP1.Post(address, PParm);
+  showmessage(Resp);
+end;
+
+procedure TfrmMain.btnPostPriceClick(Sender: TObject);
+var
+  Resp, address, table, id : string;
+  PParm: TStringList;
+begin
+  address := 'http://galaxi.co.nz/WebS.php?typ=2';
+  //address := 'http://galaxi.co.nz/WebS2.php';
+  PParm := TStringList.Create;
+  PParm.Add('uid[0]=669128');
+  PParm.Add('&price[0]=0.00');
+  //PParm.Add('&sku[1]=123457');
+  //PParm.Add('&price[1]=0.02');
+  //PParm.Add('&sku[2]=123457');
+  //PParm.Add('&price[2]=0.13');
+  Resp := idHTTP1.Post(address, PParm);
+  //Resp := idHTTP1.Post(address,Memo1.Lines);
+  showmessage(Resp);
+end;
+
+procedure TfrmMain.Button3Click(Sender: TObject);
+var
+  Resp, address, table, id : string;
+begin
+
+  Resp := 'xxxxx';
+  table := edtTable.Text;
+  id := edtID.Text;
+  address := 'https://'+z_api_key+':@secure.zeald.com/'+z_website+'/API/V2/Product/'+id;
+
+  address :='http://acclaimgroup.co.nz';
+  address := 'https://secure.zeald.com/'+Z_website+'/API/V2/Product/'+id;
+  address := 'https://secure.zeald.com/'+Z_website+'/API/V2?_key='+z_api_key;
+  address := 'https://secure.zeald.com/'+Z_website+'/API/V2';
+  address := 'http://galaxi.co.nz/WebSplash.php?typ=1&website=1&table='+table+'&id='+id;
+  address := 'https://secure.zeald.com/'+Z_website+'/API/V2/Product/'+id+'?_key='+z_api_key;
+  //address := TidURI.UrlEncode(address);
+  //IdSSLIOHandlerSocketOpenSSL1.StartSSL;
+  //  https://secure.zeald.com/pinnaclev/API/V2/Product/580500?_key=323bdAD5Bb26Aeb6e0d6
+  // Request.UserAgent changed and now it works !!
+  //Mozilla/3.0 (compatible; Indy Library)
+  //Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0
+
+  Resp := idHTTP1.Get(address);
+
+  //idHTTP1.Post()
+  Memo1.Lines.Text := Resp;
+end;
+
+procedure TfrmMain.IdHTTP1Authorization(Sender: TObject;
+  Authentication: TIdAuthentication; var Handled: Boolean);
+begin
+  // ??
+  showmessage('Authenticate');
+end;
+
+procedure TfrmMain.IdSSLIOHandlerSocketOpenSSL1Status(ASender: TObject;
+  const AStatus: TIdStatus; const AStatusText: string);
+begin
+  StatusBar1.SimpleText := AStatusText;
+end;
+(*
+  Password :='323bdAD5Bb26Aeb6e0d6';
+  VPassword :='323bdAD5Bb26Aeb6e0d6';
+*)
+end.

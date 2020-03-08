@@ -1,0 +1,56 @@
+unit dAcc;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
+
+type
+  TdmAcc = class(TDataModule)
+    ADOConnection1: TADOConnection;
+  private
+    FConnStr: String;
+    procedure SetConnStr(const Value: String);
+    { Private declarations }
+  public
+    { Public declarations }
+    property ConnStr: String  read FConnStr write SetConnStr;
+    function GetValue: integer;
+  end;
+
+var
+  dmAcc: TdmAcc;
+
+procedure SetAccConn(AStr: String);
+function GetConnStr: String;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+{ TdmAcc }
+
+function TdmAcc.GetValue: integer;
+begin
+  Result := 5;
+end;
+
+procedure TdmAcc.SetConnStr(const Value: String);
+begin
+  FConnStr := Value;
+end;
+
+{ functions }
+
+procedure SetAccConn(AStr: String);
+begin
+  dmAcc.ConnStr := AStr;
+end;
+
+function GetConnStr: String;
+begin
+  Result := dmAcc.ConnStr;
+end;
+end.

@@ -1,0 +1,690 @@
+object FrmMain: TFrmMain
+  Left = 152
+  Top = 207
+  Width = 643
+  Height = 474
+  Caption = 'Professor Dickus'#39' Logbook'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  ShowHint = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object wwDBDateTimePicker1: TwwDBDateTimePicker
+    Left = 40
+    Top = 88
+    Width = 121
+    Height = 21
+    CalendarAttributes.Font.Charset = DEFAULT_CHARSET
+    CalendarAttributes.Font.Color = clWindowText
+    CalendarAttributes.Font.Height = -11
+    CalendarAttributes.Font.Name = 'MS Sans Serif'
+    CalendarAttributes.Font.Style = []
+    DataField = 'RunDate'
+    DataSource = dsRun
+    Date = 33161
+    Epoch = 1950
+    Time = 33161
+    ShowButton = True
+    TabOrder = 0
+  end
+  object csPageControl1: TcsPageControl
+    Left = 0
+    Top = 41
+    Width = 635
+    Height = 387
+    ActivePage = tsInput
+    Align = alClient
+    TabOrder = 1
+    OnChanging = csPageControl1Changing
+    object tsInput: TcsTabSheet
+      Caption = 'Input'
+      Color = clBtnFace
+      object Panel3: TPanel
+        Left = 241
+        Top = 0
+        Width = 388
+        Height = 358
+        Align = alClient
+        BevelOuter = bvNone
+        Caption = 'Panel3'
+        TabOrder = 0
+        object wwDBGrid1: TwwDBGrid
+          Left = 0
+          Top = 57
+          Width = 388
+          Height = 301
+          Hint = 'Right Click for Options'
+          ControlType.Strings = (
+            'RunDate;CustomEdit;wwDBDateTimePicker1;F')
+          Selected.Strings = (
+            'RunDate'#9'13'#9'Run Date'
+            'Distance'#9'10'#9'Distance'
+            'RunTime'#9'10'#9'Run Time~Minutes'
+            'Year'#9'5'#9'Year'
+            'Week'#9'5'#9'Week'
+            'DayOfWeek'#9'11'#9'Day Of~Week')
+          IniAttributes.Delimiter = ';;'
+          TitleColor = clBtnFace
+          FixedCols = 0
+          ShowHorzScrollBar = True
+          Align = alClient
+          DataSource = dsRun
+          PopupMenu = PopupMenu1
+          TabOrder = 0
+          TitleAlignment = taLeftJustify
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+          TitleLines = 2
+          TitleButtons = False
+          OnCalcCellColors = wwDBGrid1CalcCellColors
+          PaintOptions.AlternatingRowColor = clMoneyGreen
+        end
+        object Panel5: TPanel
+          Left = 0
+          Top = 0
+          Width = 388
+          Height = 57
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 1
+          object LBPeriod: TLabel
+            Left = 62
+            Top = 25
+            Width = 30
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Period'
+          end
+          object DBEdit1: TDBEdit
+            Left = 96
+            Top = 20
+            Width = 57
+            Height = 21
+            DataField = 'WeekTot'
+            DataSource = dsRun
+            TabOrder = 0
+          end
+          object DBEdit2: TDBEdit
+            Left = 160
+            Top = 20
+            Width = 49
+            Height = 21
+            DataField = 'MinTot'
+            DataSource = dsRun
+            TabOrder = 1
+          end
+        end
+      end
+      object Panel4: TPanel
+        Left = 0
+        Top = 0
+        Width = 241
+        Height = 358
+        Align = alLeft
+        BevelOuter = bvNone
+        TabOrder = 1
+        object rgPeriod: TRadioGroup
+          Left = 0
+          Top = 0
+          Width = 233
+          Height = 41
+          Caption = 'Show data for :'
+          Columns = 3
+          ItemIndex = 0
+          Items.Strings = (
+            'Week'
+            'Month'
+            'Year')
+          TabOrder = 0
+          OnClick = actChangePeriodExecute
+        end
+        object MonthCalendar1: TMonthCalendar
+          Left = 8
+          Top = 48
+          Width = 209
+          Height = 161
+          Hint = 'Double Click to insert day'
+          Date = 37232.9297411458
+          FirstDayOfWeek = dowMonday
+          TabOrder = 1
+          WeekNumbers = True
+          OnClick = actChangePeriodExecute
+          OnDblClick = MonthCalendar1DblClick
+        end
+        object btnCreateStats: TButton
+          Left = 64
+          Top = 248
+          Width = 89
+          Height = 25
+          Action = actBuildStats
+          Caption = 'Create Statistics'
+          TabOrder = 2
+        end
+      end
+    end
+    object tsGraph: TcsTabSheet
+      Caption = 'Graph'
+      Color = clBtnFace
+      object DBChart1: TDBChart
+        Left = 0
+        Top = 41
+        Width = 629
+        Height = 317
+        BackWall.Brush.Color = clWhite
+        BackWall.Brush.Style = bsClear
+        Gradient.Visible = True
+        Title.Text.Strings = (
+          'Daily')
+        Chart3DPercent = 20
+        Legend.Visible = False
+        View3D = False
+        Align = alClient
+        Color = clSilver
+        TabOrder = 0
+        object Series1: TBarSeries
+          ColorEachPoint = True
+          Marks.ArrowLength = 8
+          Marks.Visible = False
+          DataSource = cdsRun
+          SeriesColor = clRed
+          Gradient.Direction = gdTopBottom
+          XValues.DateTime = True
+          XValues.Name = 'X'
+          XValues.Order = loAscending
+          XValues.ValueSource = 'RunDate'
+          YValues.DateTime = False
+          YValues.Name = 'Bar'
+          YValues.Order = loNone
+          YValues.ValueSource = 'Distance'
+          object TTeeFunction1: TAddTeeFunction
+          end
+        end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 629
+        Height = 41
+        Align = alTop
+        TabOrder = 1
+        object TeeCommander1: TTeeCommander
+          Left = 1
+          Top = 1
+          Width = 627
+          Height = 33
+          Panel = DBChart1
+          Align = alTop
+          ParentShowHint = False
+          TabOrder = 0
+        end
+      end
+    end
+    object tsImport: TcsTabSheet
+      Caption = 'Import'
+      Color = clBtnFace
+      TabEnabled = False
+      object btnEmpty: TButton
+        Left = 48
+        Top = 32
+        Width = 75
+        Height = 25
+        Caption = 'Empty'
+        Enabled = False
+        TabOrder = 0
+        OnClick = btnEmptyClick
+      end
+      object btnImport: TButton
+        Left = 48
+        Top = 72
+        Width = 75
+        Height = 25
+        Caption = 'Import'
+        Enabled = False
+        TabOrder = 1
+        OnClick = btnImportClick
+      end
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 176
+        Width = 497
+        Height = 137
+        DataSource = dsStats
+        TabOrder = 2
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+      end
+    end
+    object tsGraphStats: TcsTabSheet
+      Caption = 'Graph Stats'
+      Color = clBtnFace
+      object Chart1: TChart
+        Left = 0
+        Top = 33
+        Width = 540
+        Height = 325
+        Title.Alignment = taLeftJustify
+        Title.Gradient.Visible = True
+        Title.Text.Strings = (
+          'Stats')
+        Title.Visible = False
+        BottomAxis.Title.Caption = 'Week'
+        LeftAxis.Title.Caption = 'Kilometers'
+        Align = alClient
+        Color = 12318199
+        TabOrder = 0
+      end
+      object TeeCommander2: TTeeCommander
+        Left = 0
+        Top = 0
+        Width = 629
+        Height = 33
+        Panel = Chart1
+        Align = alTop
+        ParentShowHint = False
+        TabOrder = 1
+      end
+      object Panel6: TPanel
+        Left = 540
+        Top = 33
+        Width = 89
+        Height = 325
+        Align = alRight
+        TabOrder = 2
+        object Label1: TLabel
+          Left = 11
+          Top = 92
+          Width = 22
+          Height = 13
+          Caption = 'Year'
+        end
+        object Label2: TLabel
+          Left = 8
+          Top = 8
+          Width = 56
+          Height = 13
+          Caption = 'Series Type'
+        end
+        object cbType: TComboBox
+          Left = 8
+          Top = 24
+          Width = 73
+          Height = 21
+          Style = csDropDownList
+          ItemHeight = 13
+          ItemIndex = 2
+          TabOrder = 0
+          Text = '12 Week'
+          Items.Strings = (
+            '4 Week'
+            '8 Week'
+            '12 Week'
+            '16 Week'
+            '52 Week')
+        end
+        object btnAddSeries: TButton
+          Left = 8
+          Top = 136
+          Width = 73
+          Height = 25
+          Action = actAddSeries
+          TabOrder = 1
+        end
+        object cbYears: TComboBox
+          Left = 8
+          Top = 106
+          Width = 73
+          Height = 21
+          Style = csDropDownList
+          ItemHeight = 13
+          TabOrder = 2
+        end
+      end
+    end
+    object tsStats: TcsTabSheet
+      Caption = 'Stats'
+      Color = clBtnFace
+      object wwDBGrid2: TwwDBGrid
+        Left = 0
+        Top = 0
+        Width = 629
+        Height = 358
+        IniAttributes.Delimiter = ';;'
+        TitleColor = clBtnFace
+        FixedCols = 0
+        ShowHorzScrollBar = True
+        Align = alClient
+        DataSource = dsStats
+        TabOrder = 0
+        TitleAlignment = taLeftJustify
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        TitleLines = 1
+        TitleButtons = False
+        PaintOptions.AlternatingRowColor = clInfoBk
+      end
+    end
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 635
+    Height = 41
+    Align = alTop
+    TabOrder = 2
+  end
+  object cdsRun: TClientDataSet
+    Aggregates = <
+      item
+        AggregateName = 'WeekTot'
+        Expression = 'Sum(Distance)'
+        Visible = False
+      end>
+    AggregatesActive = True
+    Filter = 'RunDate > '#39'30/11/2001'#39
+    FieldDefs = <
+      item
+        Name = 'RunDate'
+        DataType = ftDate
+      end
+      item
+        Name = 'Distance'
+        DataType = ftFloat
+      end
+      item
+        Name = 'RunTime'
+        DataType = ftFloat
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end
+      item
+        Name = 'cdsRunIndexDate'
+        Fields = 'RunDate'
+      end>
+    IndexName = 'cdsRunIndexDate'
+    Params = <>
+    StoreDefs = True
+    OnCalcFields = cdsRunCalcFields
+    Left = 384
+    Top = 152
+    object cdsRunRunDate: TDateField
+      DisplayLabel = 'Run Date'
+      DisplayWidth = 13
+      FieldName = 'RunDate'
+    end
+    object cdsRunDistance: TFloatField
+      DisplayWidth = 10
+      FieldName = 'Distance'
+    end
+    object cdsRunRunTime: TFloatField
+      DisplayLabel = 'Run Time~Minutes'
+      DisplayWidth = 10
+      FieldName = 'RunTime'
+    end
+    object cdsRunYear: TIntegerField
+      DisplayWidth = 5
+      FieldKind = fkCalculated
+      FieldName = 'Year'
+      Calculated = True
+    end
+    object cdsRunWeek: TIntegerField
+      DisplayWidth = 5
+      FieldKind = fkCalculated
+      FieldName = 'Week'
+      Calculated = True
+    end
+    object cdsRunDayOfWeek: TStringField
+      DisplayLabel = 'Day Of~Week'
+      DisplayWidth = 11
+      FieldKind = fkCalculated
+      FieldName = 'DayOfWeek'
+      Size = 9
+      Calculated = True
+    end
+    object cdsRunWeekTot: TAggregateField
+      FieldName = 'WeekTot'
+      Visible = True
+      Active = True
+      Expression = 'Sum(Distance)'
+    end
+    object cdsRunMinTot: TAggregateField
+      FieldName = 'MinTot'
+      Active = True
+      Expression = 'Sum(RunTime)'
+    end
+  end
+  object dsRun: TDataSource
+    DataSet = cdsRun
+    Left = 352
+    Top = 152
+  end
+  object PathDialog1: TPathDialog
+    Left = 32
+    Top = 8
+  end
+  object ActionList1: TActionList
+    Images = ImageList1
+    Left = 280
+    Top = 8
+    object actChangePeriod: TAction
+      Caption = 'actChangePeriod'
+      OnExecute = actChangePeriodExecute
+    end
+    object actBuildStats: TAction
+      Caption = 'Create Stats'
+      OnExecute = actBuildStatsExecute
+    end
+    object actAddSeries: TAction
+      Caption = 'Add Series'
+      OnExecute = actAddSeriesExecute
+    end
+    object actDeleteRecord: TAction
+      Caption = 'Delete Record'
+      ImageIndex = 1
+      OnExecute = actDeleteRecordExecute
+    end
+    object actClose: TAction
+      Caption = 'Exit'
+      OnExecute = actCloseExecute
+    end
+  end
+  object cdsStats: TClientDataSet
+    Aggregates = <>
+    Filter = 'Year = 2001'
+    FieldDefs = <
+      item
+        Name = 'Year'
+        DataType = ftSmallint
+      end
+      item
+        Name = 'Week'
+        DataType = ftSmallint
+      end
+      item
+        Name = 'Distance'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Week4'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Week12'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Week8'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Week16'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Week52'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 112
+    Top = 352
+    object cdsStatsYear: TSmallintField
+      FieldName = 'Year'
+    end
+    object cdsStatsWeek: TSmallintField
+      FieldName = 'Week'
+    end
+    object cdsStatsDistance: TFloatField
+      FieldName = 'Distance'
+    end
+    object cdsStatsWeek4: TFloatField
+      FieldName = 'Week4'
+      DisplayFormat = '#.00'
+    end
+    object cdsStatsWeek12: TFloatField
+      FieldName = 'Week12'
+      DisplayFormat = '#.00'
+    end
+    object cdsStatsWeek8: TFloatField
+      FieldName = 'Week8'
+      DisplayFormat = '#.00'
+    end
+    object cdsStatsWeek16: TFloatField
+      FieldName = 'Week16'
+      DisplayFormat = '#.00'
+    end
+    object cdsStatsWeek52: TFloatField
+      FieldName = 'Week52'
+      DisplayFormat = '#.00'
+    end
+  end
+  object dsStats: TDataSource
+    DataSet = cdsStats
+    Left = 80
+    Top = 352
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 408
+    Top = 208
+    object DeleteRecord1: TMenuItem
+      Action = actDeleteRecord
+    end
+  end
+  object ImageList1: TImageList
+    Left = 440
+    Top = 24
+    Bitmap = {
+      494C010102000400040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      0000000000003600000028000000400000001000000001001000000000000008
+      00000000000000000000000000000000000000000000FF7F100010001000FF7F
+      FF7FFF7FFF7FFF7FFF7FFF7F0000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000001863FF7F10001000FF7F
+      1863FF7FFF7FFF7FFF7FFF7F0000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000001000FF7FFF7F10001000
+      1000FF7FFF7FFF7FFF7FFF7F0000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001000FF7F18631000
+      1000FF7F10001000FF7FFF7F0000000000000000007C007C007C007C007C007C
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001000FF7FFF7F1000
+      10001042FF7F1000104210420000000000000000007C007C007C007C007C007C
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000100010001000FF7FFF7F
+      FF7F1000FF7F1000100010000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000100010001000FF7FFF7F
+      FF7FFF7FFF7FFF7F100010000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000001000100010001042FF7F
+      FF7F10001863FF7F100010000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000FF7F104210001000FF7F
+      FF7FFF7F100010001000100000000000000000000000000000001F0000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001863FF7FFF7FFF7F
+      FF7FFF7FFF7F1000100010000000000000000000000000001F001F0000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001000100010001000
+      10001042FF7FFF7F1000100000000000000000001F001F001F001F001F001F00
+      1F001F001F001F000000007C007C000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001000100010001000
+      FF7FFF7F10001000FF7F100000000000000000001F001F001F001F001F001F00
+      1F001F001F001F000000007C007C000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001000100010001042
+      FF7FFF7F10001000100010000000000000000000000000001F001F0000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000010001000100010001000
+      10001000100010001000007C00000000000000000000000000001F0000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000007C007C000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000042000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000424D3E000000000000003E000000
+      2800000040000000100000000100010000000000800000000000000000000000
+      000000000000000000000000FFFFFF00C007FFFF00000000C007FFF800000000
+      C007FFF800000000C00781FF00000000C00781FC00000000C007FFFC00000000
+      C007FFFF00000000C007FFFC00000000C007F7FC00000000C007E7FF00000000
+      C007801300000000C007801300000000C007E7FF00000000C007F7F800000000
+      FFF3FFF800000000FFFBFFFF00000000}
+  end
+  object MainMenu1: TMainMenu
+    Left = 112
+    Top = 8
+    object File1: TMenuItem
+      Caption = '&File'
+      object Exit1: TMenuItem
+        Action = actClose
+      end
+    end
+    object Options1: TMenuItem
+      Caption = 'Options'
+      object ShowHints1: TMenuItem
+        Caption = 'Show Hints'
+        Checked = True
+        OnClick = ShowHints1Click
+      end
+    end
+  end
+end

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/05/25 12:15:53.000.462,=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2014/05/25 12:16:47.000.914,=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2014/05/30 21:25:14.000.171,=C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2014/05/31 10:27:12.000.913,C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit3.pas=C:\Richard\Delphi\MySQL\Unit3.pas</Transaction>
+    <Transaction>2014/05/31 10:27:12.000.913,C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Unit3.dfm=C:\Richard\Delphi\MySQL\Unit3.dfm</Transaction>
+    <Transaction>2014/05/31 10:27:15.000.943,C:\Users\OEM\Documents\Embarcadero\Studio\Projects\Project2.dproj=C:\Richard\Delphi\MySQL\Project2.dproj</Transaction>
+    <Transaction>2014/05/31 20:24:30.000.157,=C:\Richard\Delphi\MySQL\ModelSupport_Project2\default.txaPackage</Transaction>
+    <Transaction>2014/05/31 20:24:35.000.171,=C:\Richard\Delphi\MySQL\ModelSupport_Project2\default.txvpck</Transaction>
+    <Transaction>2014/05/31 20:24:36.000.988,=C:\Richard\Delphi\MySQL\ModelSupport_Project2\Project2\default.txvpck</Transaction>
+    <Transaction>2014/05/31 20:25:19.000.754,=C:\Richard\Delphi\MySQL\ModelSupport_Project2\Unit3\default.txvpck</Transaction>
+  </Transactions>
+</BorlandProject>

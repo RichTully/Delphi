@@ -1,0 +1,19 @@
+unit AccLib;
+
+interface
+uses
+  ADODB;
+
+function GetDataInteger(qryConn:TAdoQuery; SQL: String): integer;
+
+implementation
+
+function GetDataInteger(qryConn:TAdoQuery; SQL: String): integer;
+begin
+  qryConn.Close;
+  qryConn.SQL.Text := SQL;
+  qryConn.Open;
+  Result := qryConn.Fields[0].AsInteger;
+end;
+
+end.

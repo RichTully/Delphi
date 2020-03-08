@@ -1,0 +1,171 @@
+unit fMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient,
+  IdExplicitTLSClientServerBase, IdMessageClient, IdSMTPBase, IdSMTP, IdText,
+  IdMessage, IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL,
+  IdSSLOpenSSL, ExtCtrls;
+
+type
+  TfrmMain = class(TForm)
+    SMTP1: TIdSMTP;
+    edthost: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    edtuser: TEdit;
+    Label3: TLabel;
+    edtPort: TEdit;
+    Label4: TLabel;
+    edtto: TEdit;
+    Label5: TLabel;
+    edtFrom: TEdit;
+    btnSend: TButton;
+    edtSubj: TEdit;
+    Label6: TLabel;
+    mmoBody: TMemo;
+    Label7: TLabel;
+    SMTPMsg: TIdMessage;
+    edtPass: TEdit;
+    IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL;
+    Timer1: TTimer;
+    LblTmr: TLabel;
+    procedure btnSendClick(Sender: TObject);
+    procedure SMTP1Status(ASender: TObject; const AStatus: TIdStatus;
+      const AStatusText: string);
+    procedure FormResize(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+  private
+    fHeight: Integer;
+    fWidth: Integer;
+    fTmr: Integer;
+    { Private declarations }
+    procedure SendAttachment(ABody: string);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+{$R *.dfm}
+Uses Math;
+
+procedure TfrmMain.btnSendClick(Sender: TObject);
+begin
+  with SMTP1 do
+  begin
+    Host := edtHost.Text;
+    Username := edtUser.Text;
+    Port := StrtoInt(edtPort.Text);
+    Password := edtPass.Text;
+  end;
+  try
+    Screen.Cursor := crHourGlass;
+    with SMTPMsg do
+    begin
+      Clear;
+      From.Address:= edtFrom.Text;
+      From.Name :=edtFrom.Text;
+      Recipients.EMailAddresses := edtTo.Text;
+      Subject := edtSubj.Text;
+    end;
+    //----------------------------
+    mmoBody.Clear;
+    mmoBody.Lines.Add('<BODY>');
+    mmoBody.Lines.Add('<div style="width:750px;padding:10px 0 0 30px;background:#f5f9fc;float:left;" >');
+    mmoBody.Lines.Add('<p style="color:#4179b8;font-size:24px;padding:10px;float:left;" >');
+    mmoBody.Lines.Add('<b>AshAir    Debtor Account 314-ASH AIR WORKSHOP - AUCKLAND</b>');
+    mmoBody.Lines.Add('</p>');
+    mmoBody.Lines.Add('<p style="color:#4179b8;font-size:18px;padding:10px;margin:0;float:left;" >');
+    mmoBody.Lines.Add('AshAir    Schedule your next service date');
+    mmoBody.Lines.Add('</p>');
+    mmoBody.Lines.Add('<p style="font-size:16px;padding:10px;line-height:20px;float:left;" >');
+    mmoBody.Lines.Add('This is an automated email from Ash Air (NZ) Ltd online system.'+
+'During the month of March, you have compressors or compressed air equipment that is due for servicing.'+
+'You can set up a service date at your convenience.'+
+'To set up your next service date click on the link below');
+    mmoBody.Lines.Add('</p>');
+    mmoBody.Lines.Add('<a href="http://www.acclaimdev.com/AshAirBk/BookSUService.php?BUser=59m1f4UeSlLWRE2" target="_blanck" >');
+    mmoBody.Lines.Add('<div style="text-align:center;text-decoration:none;width:120px;background:#37679b;color:white;font-size:18px;padding:10px 20px 10px 20px;float:left;border-radius:5px;" >');
+    mmoBody.Lines.Add('Click here');
+    mmoBody.Lines.Add('</div>');
+    mmoBody.Lines.Add('</a>');
+    mmoBody.Lines.Add('<p style="width:100%;font-size:16px;padding:10px;float:left;" >');
+    mmoBody.Lines.Add('Or contact the service dept directly on 09 444 8486 and email@ashair.co.nz');
+    mmoBody.Lines.Add('</p>');
+    mmoBody.Lines.Add('</div>');
+    mmoBody.Lines.Add('</BODY>');
+    //----------------------------
+    SendAttachment(mmoBody.Text);
+    MessageDlg('File emailed successfully',mtInformation,[mbOK],0);
+  finally
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+{  fHeight := Height;
+  fWidth := Width;}
+end;
+
+procedure TfrmMain.FormResize(Sender: TObject);
+var
+  Ratio: double;
+begin
+{
+  Ratio := Min(ClientWidth/ fWidth , ClientHeight /fHeight);
+  ScaleBy(Trunc(Ratio * 100), 100);}
+end;
+
+procedure TfrmMain.SendAttachment(ABody: string);
+var
+  idTxtpart: TIdText;
+begin
+  with SMTPMsg do
+  begin
+    ContentType := 'Multipart/mixed';
+    idTxtPart:=TIdText.Create(SMTPMsg.MessageParts,nil);
+    //idTxtPart.ContentType:='text/plain';
+    idTxtPart.ContentType:='text/html';
+    idTxtPart.Body.Clear;
+
+    idTxtPart.Body.Add(ABody);
+  end;
+  with SMTP1 do
+  begin
+    try
+      if not Connected then
+        Connect;
+      //if MessageDlg('Send email to '+SMTP1.PostMessage.ToAddress[0], mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+      Send(SMTPMsg);
+    finally
+      Disconnect;
+    end;
+  end;
+end;
+
+
+procedure TfrmMain.SMTP1Status(ASender: TObject; const AStatus: TIdStatus;
+  const AStatusText: string);
+begin
+  ShowMessage(AStatusText);
+end;
+
+procedure TfrmMain.Timer1Timer(Sender: TObject);
+begin
+(*
+  inc(fTmr);
+  LblTmr.Caption := IntToStr(fTmr);
+  if fTmr > 60 then
+    Close;
+*)
+end;
+
+end.

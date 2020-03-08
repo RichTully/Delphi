@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.zeald.com" xmlns="http://www.zeald.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/10.0/XMLDataBinding">
+	<xs:element name="ResultSet">
+		<xs:complexType>
+			<xs:annotation>
+        <xs:appinfo xdb:docElement="ResultSet"/>
+      </xs:annotation>
+      <xs:sequence>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="Product">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element minOccurs="0" name="access_control" type="xs:boolean"/>
+							<xs:element minOccurs="0" name="advanced_pricing" type="xs:boolean"/>
+							<xs:element minOccurs="0" name="comment" type="xs:string"/>
+							<xs:element minOccurs="0" name="custom_data1" type="xs:string"/>
+							<xs:element minOccurs="0" name="custom_data2" type="xs:string"/>
+							<xs:element minOccurs="0" name="custom_data3" type="xs:string"/>
+							<xs:element minOccurs="0" name="custom_data4" type="xs:string"/>
+							<xs:element minOccurs="0" name="description" type="xs:string"/>
+							<xs:element minOccurs="0" name="extended" type="xs:string"/>
+							<xs:element minOccurs="0" name="image" type="xs:string"/>
+							<xs:element minOccurs="0" name="image_large" type="xs:string"/>
+							<xs:element minOccurs="0" name="inactive" type="xs:boolean"/>
+							<xs:element minOccurs="0" name="last_modified" type="datetime-or-empty"/>
+							<xs:element minOccurs="0" name="meta_desc" type="xs:string"/>
+							<xs:element minOccurs="0" name="meta_key_words" type="xs:string"/>
+							<xs:element minOccurs="0" name="meta_page_title" type="xs:string"/>
+							<xs:element minOccurs="0" name="nontaxable" type="xs:string"/>
+							<xs:element minOccurs="0" name="option_type" type="xs:string"/>
+							<xs:element minOccurs="0" name="options_advanced" type="xs:boolean"/>
+							<xs:element minOccurs="0" name="price" type="decimal-or-empty"/>
+							<xs:element minOccurs="0" name="priority" type="xs:string"/>
+							<xs:element minOccurs="0" name="product_type" type="xs:string"/>
+							<xs:element minOccurs="0" name="sku" type="xs:string"/>
+							<xs:element minOccurs="0" name="supplier" type="xs:string"/>
+							<xs:element minOccurs="0" name="thumb" type="xs:string"/>
+							<xs:element minOccurs="0" name="title" type="xs:string"/>
+							<xs:element minOccurs="0" name="url_override" type="xs:string"/>
+							<xs:element minOccurs="0" name="weight" type="xs:string"/>
+							<xs:element minOccurs="0" name="wholesale" type="xs:string"/>
+						</xs:sequence>
+						<xs:attribute name="href" type="xs:string"/>
+						<xs:attribute name="id" type="xs:string"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="startResultIndex" type="xs:integer"/>
+			<xs:attribute name="totalResults" type="xs:integer"/>
+			<xs:attribute name="totalResultsReturned" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="decimal-or-empty">
+		<xs:union memberTypes="xs:decimal empty-string"/>
+	</xs:simpleType>
+	<xs:simpleType name="datetime-or-empty">
+		<xs:union memberTypes="xs:dateTime empty-string"/>
+	</xs:simpleType>
+	<xs:simpleType name="empty-string">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<BorlandProject xmlns="http://www.borland.com/DeveloperStudio">
+  <PersonalityInfo>
+    <Option>
+      <Option Name="Personality">ETM.Personality</Option>
+      <Option Name="ProjectType">Base</Option>
+      <Option Name="Version">1.0</Option>
+      <Option Name="GUID">{CC12A022-BB2F-4A9B-AD5B-2B3AE994CA94}</Option>
+    </Option>
+  </PersonalityInfo>
+  <ETM.Personality>
+    <Options>
+      <Options Name="BaseLang">5129</Options>
+    </Options>
+    <Languages>
+      <Languages Name="Item0">$00000436*AFK*AFK\</Languages>
+      <Languages Name="Item1">$00001409*ENZ*ENZ\</Languages>
+    </Languages>
+    <FileList>
+      <File FileName="C:\Richard\Delphi\SMTP\fMain.dfm" FileType="DFMFileType" ContainerId=""/>
+      <File FileName="C:\Richard\Delphi\MySQL\Unit3.dfm" FileType="DFMFileType" ContainerId=""/>
+    </FileList>
+  </ETM.Personality>
+</BorlandProject>

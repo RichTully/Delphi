@@ -1,0 +1,135 @@
+unit uAcc;
+
+interface
+
+uses dAcc, System.SysUtils, Generics.Collections;
+
+type
+  TSalesOrd_Line = class
+  private
+    fStockcode: string;
+    fDescription: string;
+    fUnitPrice: double;
+    fOrd_Quant: double;
+  public
+    constructor Create(Stockcode: string; Ord_Quant, UnitPrice: double);
+  end;
+
+type
+  TSO = class
+  private
+    fSeqNo: integer;
+    fAccNo: Integer;
+    fRef1: String;
+    fRef2: string;
+    fSubTotal: Double;
+    fTaxTotal: Double;
+    procedure SetAccNo(const Value: integer);
+    procedure SetRef1(const Value: string);
+    procedure SetRef2(const Value: string);
+    procedure SetSubTotal(const Value: double);
+    procedure SetTaxTotal(const Value: double);
+  public
+    Lines: TObjectList<TSalesOrd_Line>;
+    procedure Insert;
+    procedure Update;
+    property SeqNo: integer read fSeqNo;
+    property AccNo: integer  read FAccNo write SetAccNo;
+    property Ref1: string read FRef1 write SetRef1;
+    property Ref2: string read FRef2 write SetRef2;
+    property SubTotal: double read FSubTotal write SetSubTotal;
+    property TaxTotal: double read FTaxTotal write SetTaxTotal;
+
+end;
+
+function GetValue: integer;
+procedure SetAccConn(AStr: String);
+function GetConnStr: String;
+function QU(AStr: string): string;
+
+implementation
+
+function QU(AStr: string): string;
+begin
+  Result := QuotedStr(AStr);
+end;
+
+function GetValue: integer;
+begin
+  Result := dmAcc.GetValue;
+
+end;
+
+procedure SetAccConn(AStr: String);
+begin
+  dmAcc.ConnStr := AStr;
+end;
+
+function GetConnStr: String;
+begin
+  Result := dmAcc.ConnStr;
+end;
+
+{ TSO }
+
+procedure TSO.Insert;
+var
+  SQL: string;
+begin
+  SQL := 'insert into Salesord_Hdr(AccNo, Ref1,Ref2, SubTotal) '+
+         ' values('+IntToStr(fAccNo)+
+         ','+ QU(fRef1)+
+         ','+ QU(fRef2)+
+         ','+Format('%10.4f',[fSubTotal])+
+         '); select scope_identity();' ;
+  fSeqNo := 100;// GetDataInteger(SQL);
+end;
+
+
+procedure TSO.SetAccNo(const Value: integer);
+begin
+  FAccNo := Value;
+end;
+
+procedure TSO.SetRef1(const Value: string);
+begin
+  FRef1 := Value;
+end;
+
+procedure TSO.SetRef2(const Value: string);
+begin
+  FRef2 := Value;
+end;
+
+procedure TSO.SetSubTotal(const Value: double);
+begin
+  FSubTotal := Value;
+end;
+
+procedure TSO.SetTaxTotal(const Value: double);
+begin
+  FTaxTotal := Value;
+end;
+
+procedure TSO.Update;
+var
+  SQL: string;
+begin
+  SQL := 'update SalesOrd_Hdr '+
+         ' set AccNo='+IntToStr(fAccNo)+
+         ' Where SeqNo='+IntToStr(fSeqNo);
+  //ExecuteSQL(SQL);
+
+end;
+
+{ TSalesOrd_Line }
+
+constructor TSalesOrd_Line.Create(Stockcode: string; Ord_Quant,
+  UnitPrice: double);
+begin
+  fStockcode := Stockcode;
+  fUnitPrice := UnitPrice;
+  fOrd_Quant := Ord_Quant;
+end;
+
+end.
